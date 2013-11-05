@@ -1,7 +1,7 @@
 {
-    "name": "showclix/cube-php",
+    "name": "rockerboo/cube-php",
     "description": "A PHP client for Cube",
-    "homepage": "http://github.com/ShowClix/cube-php",
+    "homepage": "http://github.com/rockerboo/cube-php",
     "license": "MIT",
     "keywords": ["cube", "analytics"],
     "version": "0.1.0",
