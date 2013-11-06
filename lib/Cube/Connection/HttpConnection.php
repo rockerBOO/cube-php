@@ -59,7 +59,13 @@ class HttpConnection extends \Cube\Connection\Connection {
             ->sendsJson()
             ->expectsJson()
             ->body($args);
-        $res = $req->send();
+
+        try {
+            $res = $req->send();
+        } catch (Httpful\Exception\ConnectionErrorException $e) {
+            throw new \Cube\Exception\ConnectionException($e->getMessage(), $e->getCode());
+        }
+        
         return $res->body;
     }
 
@@ -69,3 +75,5 @@ class HttpConnection extends \Cube\Connection\Connection {
         return $res;
     }
 }
+
+
