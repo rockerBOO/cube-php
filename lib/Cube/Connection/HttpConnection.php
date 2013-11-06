@@ -59,13 +59,28 @@ class HttpConnection extends \Cube\Connection\Connection {
             ->sendsJson()
             ->expectsJson()
             ->body($args);
-        $res = $req->send();
+
+        try {
+            $res = $req->send();
+        } catch (\Httpful\Exception\ConnectionErrorException $e) {
+            throw new \Cube\Exception\ConnectionException($e->getMessage(), $e->getCode());
+        }
+        
         return $res->body;
     }
 
     private function send($url)
     {
-        $res = \Httpful\Request::get($url)->expectsJson()->send();
+        $req = \Httpful\Request::get($url)->expectsJson();
+
+        try {
+            $res = $req->send();
+        } catch (\Httpful\Exception\ConnectionErrorException $e) {
+            throw new \Cube\Exception\ConnectionException($e->getMessage(), $e->getCode());
+        }
+
         return $res;
     }
 }
+
+
